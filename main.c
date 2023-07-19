@@ -19,19 +19,19 @@
 //Creo un arreglo N con 10 elementos, que contiene diferentes patrones de bits utilizados
 //para configurar las entradas JAM del CD4059, permitiendo establecer el valor de división requerido.
 
-int N[10]={0x38,0x39,0x3A,0x3B,0x3C,0x40,0x41,0x42,0x43,0x44};
+int N[10]={0x8,0x9,0xA,0xB,0xC,0x10,0x11,0x12,0x13,0x14};
 
-//Creo un arreglo Pines con 7 elementos, que contiene los pines GPIO utilizados para controlar el
+//Creo un arreglo Pines con 5 elementos, que contiene los pines GPIO utilizados para controlar el
 //circuito CD4059 a traves de las entradas JAM
 
-cyhal_gpio_t Pines[7]={P9_6,P8_0,P9_2,P9_1,P9_4,P9_7,P5_5};
+cyhal_gpio_t Pines[5]={P8_0,P9_2,P9_1,P9_4,P9_7};
 
 // Función "escribir" que recibe un entero "w" como parámetro.
 // Esta función se encarga de mostrar en los pines GPIO los bits almacenados en el arreglo N[w].
 // Para cada pin en el arreglo Pines, se escribe el bit correspondiente de N[w].
 
 void escribir(int w){
-	    for(int k=0;k<7;k++)
+	    for(int k=0;k<5;k++)
 		cyhal_gpio_write(Pines[k], (N[w] >> k)&1);
 }
 
@@ -219,7 +219,7 @@ int main(void)
     // Crea una ventana
     //
       WM_CreateWindowAsChild(0, 0, LCD_GetXSize(), LCD_GetYSize(), WM_HBKWIN, WM_CF_SHOW, _cbWin, 0);
-      for(int i=0;i<7;i++)
+      for(int i=0;i<5;i++)
           cyhal_gpio_init(Pines[i], CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG , 0);
 
       //
